@@ -63,6 +63,8 @@
   "author": "kiba.x.zhao",
   "license": "MIT",
   "dependencies": {
+    "@grpc/grpc-js": "^1.2.6",
+    "@grpc/proto-loader": "^0.5.6",
     "brick-engine": "^0.1.4"
   }
 }
