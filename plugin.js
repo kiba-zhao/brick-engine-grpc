@@ -7,5 +7,5 @@
 'use strict';
 
 exports.grpcServer = {
-  package: './plugins/grpc-server'
+  package: './plugins/grpc-server',
 };

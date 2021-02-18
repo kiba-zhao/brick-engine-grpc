@@ -8,21 +8,29 @@
 
 const { createGrpcServer } = require('.');
 
-module.exports = (provider) => {
+module.exports = provider => {
 
-  provider.require(['boot', 'config'], (boot, config) => setup(provider, boot, config.grpcServer));
+  provider.require([ 'boot', 'inject', 'config' ], (boot, inject, config) => setup(provider, boot, inject, config.grpcServer));
 
 };
 
-const ID = 'grpc-server';
-function setup(provider, boot, config) {
+function setup(provider, boot, inject, config) {
 
   if (!config) {
     return;
   }
 
-  const loader = boot.createBootLoader(config.pattern, boot.context, config.opts || {});
-  const instance = createGrpcServer(loader, config);
-  provider.define(ID, [], instance.server);
-  provider.require(instance.deps, instance.init);
+  const instance = createGrpcServer(config);
+  const { server, grpc } = instance;
+  provider.define('grpc-server', [], { server, grpc });
+
+  const loader = boot.createBootLoader(config.patterns, boot.context, config.opts || {});
+  const injector = inject.createInjector(loader);
+  provider.require(injector.deps, init.bind(this, injector, instance));
 }
+
+function init(injector, grpcServer, ...args) {
+  injector.init(...args);
+  grpcServer.init();
+}
+
