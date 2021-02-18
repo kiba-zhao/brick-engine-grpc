@@ -11,7 +11,6 @@ const { isPlainObject, isString, isInteger, inRange } = require('lodash');
 const grpc = require('@grpc/grpc-js');
 
 const SERVER = Symbol('server');
-const GRPC = Symbol('grpc');
 const OPTIONS = Symbol('options');
 
 const PORT_REGEX = /^([1-9]|[1-5]\d{4}|6[1-4]\d{3}|65[1-4]\d{2}|655[1-2]\d|6553[1-5])$/;
@@ -30,10 +29,6 @@ class GrpcServer {
 
   get server() {
     return this[SERVER];
-  }
-
-  get grpc() {
-    return this[GRPC];
   }
 
   init() {

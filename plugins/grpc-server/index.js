@@ -6,6 +6,7 @@
  */
 'use strict';
 
+const grpc = require('@grpc/grpc-js');
 const GrpcServer = require('lib/grpc_server');
 
 function createGrpcServer(...args) {
@@ -15,3 +16,5 @@ function createGrpcServer(...args) {
 exports.createGrpcServer = createGrpcServer;
 
 exports.GrpcServer = GrpcServer;
+
+exports.grpc = grpc;
